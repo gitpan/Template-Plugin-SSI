@@ -26,7 +26,7 @@ use base qw( Template::Plugin );
 use Template::Plugin;
 use CGI::SSI;
 
-$VERSION = sprintf("%d.%02d", q$Revision: 0.10 $ =~ /(\d+)\.(\d+)/);
+$VERSION = sprintf("%d.%02d", q$Revision: 0.11 $ =~ /(\d+)\.(\d+)/);
 
 sub new {
     my $class   = shift;
@@ -170,7 +170,7 @@ Template::Plugin::SSI - Plugin to use SSI in Template Toolkit (wrapper for CGI::
  #  FLASTMOD      - the last time this script was modified
  [% SSI.echo('DATE_LOCAL') %]
 
- # set a local variable ($name = 'Corey)
+ # set a local variable ($name = 'Corey')
  [% SSI.set('name', 'Corey') %]
 
  # print when 'index.html' was last modified
@@ -194,10 +194,11 @@ The following SSI directives have been implemented:
 
 include($type, $filepath) - Include a file from within your template.
                             ($type must be either 'virutal' or 'file')
+    
     # Apache SSI example:
-    <!--#include virtual="/footer.html" -->
-    <!--#include file="/var/www/html/footer.html" -->
-
+    #<!--#include virtual="/footer.html" -->
+    #<!--#include file="/var/www/html/footer.html" -->
+    #
     # Template::Plugin::SSI example:
     # when using $type == 'virutal', $filepath is relative
     # + to the document being served
@@ -210,9 +211,10 @@ include($type, $filepath) - Include a file from within your template.
 
 exec($type, $filepath) - Execute a file/cgi and print the output.
                          ($type must be either 'cmd' or 'cgi')
+    
     # Apache SSI example:
-    <!--#exec cmd="ls" -->
-
+    #<!--#exec cmd="ls" -->
+    #
     # Template::Plugin::SSI example:
     # Output a list of files in the current directoy
     [% SSI.exec('cmd', 'ls') %]
@@ -220,10 +222,11 @@ exec($type, $filepath) - Execute a file/cgi and print the output.
 
 config($var, $value) - Set a config variable
                        ($var must be 'timefmt', 'errormsg' or 'sizefmt')
+    
     # Apache SSI example:
-    <!--#config timefmt="%A %B %d, %Y" -->
-    <!--#config errmsg="[Uh-oh]" -->
-
+    #<!--#config timefmt="%A %B %d, %Y" -->
+    #<!--#config errmsg="[Uh-oh]" -->
+    #
     # Template::Plugin::SSI example:
     # Change all dates to only print the year 
     # + timefmt uses the strftime() syntax
@@ -231,18 +234,20 @@ config($var, $value) - Set a config variable
 
 
 echo($var) - Echo an environment or previously set variable
+    
     # Apache SSI example:
-    <!--#echo var="DATE_LOCAL" -->
-
+    #<!--#echo var="DATE_LOCAL" -->
+    #
     # Template::Plugin::SSI example:
     # Print the current date
     [% SSI.echo('DATE_LOCAL') %]
 
 
 set($var, $val) - Set a local variable
+    
     # Apache SSI example:
-    <!--#set var="name" value="Corey" -->
-
+    #<!--#set var="name" value="Corey" -->
+    #
     # Template::Plugin::SSI example:
     # Set the variable "name" with the value "Corey"
     [% SSI.set('name', 'Corey') %]
@@ -250,9 +255,10 @@ set($var, $val) - Set a local variable
 
 flastmod($type, $filepath) - Print the modification date of $filepath
                              ($type must be either 'virutal' or 'file')
+    
     # Apache SSI example:
-    <!--#flastmod file="index.html" -->
-
+    #<!--#flastmod file="index.html" -->
+    #
     # Template::Plugin::SSI example:
     # Output when index.html was last modified
     [% SSI.flastmod('file', 'index.html') %]
@@ -260,9 +266,10 @@ flastmod($type, $filepath) - Print the modification date of $filepath
 
 fsize($type, $filepath) - Print the filesize of $filepath
                           ($type must be either 'virutal' or 'file')
+    
     # Apache SSI example:
-    <!--#fsize file="index.html" -->
-
+    #<!--#fsize file="index.html" -->
+    #
     # Template::Plugin::SSI example:
     # Output the size of index.html
     [% SSI.fsize('file', 'index.html') %]
@@ -270,9 +277,17 @@ fsize($type, $filepath) - Print the filesize of $filepath
 
 =head1 AUTHORS
 
-Corey Wilson<lt>cwilson@sngbet.comE<gt>  
+   Corey Wilson E<lt>cwilson_a.t_sbgnet_d.o.t_comE<gt>  
+   Mike Kralec E<lt>mkralec_a.t_sbgnet_d.o.t_comE<gt> 
+   James Tolley E<lt>james_a.t_bitperfect_d.o.t_comE<gt> created CGI::SSI.
 
-Mike Kralec<lt>mkralec@sngbet.comE<gt> 
+=head1 COPYRIGHT
 
-James Tolley<lt>james@bitperfect.comE<gt> created CGI::SSI.
+   Copyright (C) 2005 Sinclair Broadcast Group
 
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<Template::Plugin|Template::Plugin>, L<CGI::SSI|CGI::SSI>
